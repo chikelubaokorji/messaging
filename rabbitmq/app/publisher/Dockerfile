@@ -8,12 +8,12 @@ RUN go get github.com/julienschmidt/httprouter
 RUN go get github.com/sirupsen/logrus
 RUN go get github.com/streadway/amqp
 
-COPY producer.go /src
+COPY publisher.go /src
 
-RUN go build producer.go
+RUN go build publisher.go
 
 FROM alpine as runtime
 
-COPY --from=build /src/producer /app/producer
+COPY --from=build /src/publisher /app/publisher
 
-CMD [ "/app/producer" ]
+CMD [ "/app/publisher" ]
