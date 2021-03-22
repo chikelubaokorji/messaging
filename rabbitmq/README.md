@@ -25,7 +25,7 @@ $ docker logs rabbit-1
 
 Step 4:<br/>
 Use the RabbitMQ command line tool *rabbitmqctl* to manage the node.<br/>
-While *rabbitmq-plugins* is used for plugins integration and management.<br/>
+An additional command line tool to RabbitMQ, *rabbitmq-plugins* is used integrate and manage plugins.<br/>
 ```bash
 $ docker exec -it rabbit-1 bash    
 $ rabbitmqctl [--node <node>] [--timeout <timeout>] [--longnames] [--quiet] <command> [<command options>]
@@ -38,4 +38,12 @@ Build and run the publisher application.<br/>
 $ cd messaging/rabbitmq/app/publisher
 $ docker build . -t fokorji/rabbitmq-publisher:v1.0.0
 $ docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit-1 -e RABBIT_PORT=5672 -e RABBIT_USERNAME=guest -e RABBIT_PASSWORD=guest -p 80:80 fokorji/rabbitmq-publisher:v1.0.0
+```
+
+Step 6:<br/>
+Build and run the consumer application.<br/>
+```bash
+$ cd messaging/rabbitmq/app/consumer
+$ docker build . -t fokorji/rabbitmq-consumer:v1.0.0
+$ docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit-1 -e RABBIT_PORT=5672 -e RABBIT_USERNAME=guest -e RABBIT_PASSWORD=guest fokorji/rabbitmq-consumer:v1.0.0
 ```
